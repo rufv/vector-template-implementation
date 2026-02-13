@@ -39,3 +39,12 @@
 
 # debug information files
 *.dwo
+
+# IDE and System Files
+.vscode/
+.vs/
+.idea/
+cmake-build-debug/
+out/
+build/
+.DS_Store
