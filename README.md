@@ -63,6 +63,7 @@ int main() {
 
     return 0;
 }
+```
 
 ## Testing
 Unit testing is performed using the [doctest](https://github.com/doctest/doctest) framework. The suite covers:
