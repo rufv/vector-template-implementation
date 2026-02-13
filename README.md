@@ -4,27 +4,28 @@ A template-based C++ Vector class implementation featuring dynamic resizing, mov
 
 # Custom C++ Vector Implementation
 
-A high-performance, template-based dynamic array implementation in C++, designed as a custom alternative to `std::vector`. This project focuses on manual memory management, template programming, and iterator logic.
+A template-based dynamic array implementation in C++, designed as a custom alternative to `std::vector`. This project focuses on manual memory management, template programming, and iterator logic.
 
 ## Key Features
 - **Dynamic Memory Management:** Uses `std::unique_ptr` for safe RAII-based memory handling.
 - **Template Core:** Supports any data type via C++ Templates.
 - **STL Compatibility:** Full support for `Iterator` and `ConstIterator`, allowing the use of range-based for loops and `<algorithm>` library.
-- **Exception Safety:** Boundary checking on element access.
+- **Exception Safety:** Boundary checking on element access via the `.at()` method.
 
 ## Technical Specification
 
-The class manages three internal states: `sz` (current size), `max_sz` (total capacity), and a `values` array.
+The class manages its internal state through three main variables: `sz` (current size), `max_sz` (total capacity), and a `values` array (stored in a `std::unique_ptr`).
 
 ### Constructors & Destructor
 * `Vector()`: Initializes an empty vector with a default minimum capacity (5).
 * `Vector(size_type n)`: Initializes a vector with a specific capacity `n`.
-* `Vector(initializer_list)`: Allows elegant initialization like `Vector v = {1, 2, 3}`.
+* `Vector(initializer_list)`: Allows elegant initialization like `Vector<int> v = {1, 2, 3}`.
+* **Copy Semantics:** Implements Copy Constructor and Copy Assignment operator for deep copying of elements.
 
 ### Capacity Management
 * `reserve(n)`: Pre-allocates memory for at least `n` elements to prevent frequent reallocations.
 * `shrink_to_fit()`: Reduces memory usage by freeing unused capacity to match the current size.
-* `push_back(val)`: Adds an element to the end. If the capacity is full, it automatically doubles the internal storage.
+* `push_back(val)`: Adds an element to the end. Automatically doubles capacity when the limit is reached.
 * `pop_back()`: Removes the last element from the container.
 
 ### Element Access
@@ -33,9 +34,9 @@ The class manages three internal states: `sz` (current size), `max_sz` (total ca
 * `front()` / `back()`: Access the first and last elements respectively.
 
 ### Iterators
-The implementation includes `begin()` and `end()` methods that return:
-- `Iterator`: For read-write access.
-- `ConstIterator`: For read-only access, ensuring `const` correctness for the container.
+The implementation includes `Iterator` and `ConstIterator` classes providing:
+- **Random Access:** Support for pointer-like arithmetic and comparisons.
+- **Compatibility:** Works with standard loops and C++ algorithms.
 
 ## Usage Example
 ```cpp
